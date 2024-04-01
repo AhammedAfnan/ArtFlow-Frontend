@@ -206,7 +206,7 @@ const PostCard = () => {
                   <img
                     className="h-8 w-8 rounded-full mr-2"
                     // src={`${BASE_URL}/artistProfile/${post?.postedBy?.profile}`}
-                    src={`http://localhost:5000/artistProfile/${post?.postedBy?.profile}`}
+                    src={`https://artflow.onrender.com/artistProfile/${post?.postedBy?.profile}`}
                     onClick={() =>
                       navigate(ServerVariables.viewArtistDetails, {
                         state: { artist: post?.postedBy },
@@ -249,7 +249,7 @@ const PostCard = () => {
                 {post.image && (
                   <img
                     // src={`${BASE_URL}/artistPosts/${post.image}`}
-                    src={`http://localhost:5000/artistPosts/${post.image}`}
+                    src={`https://artflow.onrender.com/artistPosts/${post.image}`}
                     alt={`Post by ${post?.postedBy?.name}`}
                     className="mb-4 rounded-md w-full"
                   />

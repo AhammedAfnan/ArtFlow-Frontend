@@ -32,7 +32,7 @@ function Banners() {
         <img
           className="h-10 w-10 rounded-full"
           // src={`${BASE_URL}/banners/${row?.image}`}
-          src={`http://localhost:5000/banners/${row?.image}`}
+          src={`https://artflow.onrender.com/banners/${row?.image}`}
           alt="image"
         />
       ),

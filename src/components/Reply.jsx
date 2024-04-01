@@ -45,7 +45,7 @@ const Reply = ({ Reply, Post, comment }) => {
             <img
               className="mr-2 w-6 h-6 rounded-full"
             //   src={`${BASE_URL}/artistProfile/${post?.postedBy?.profile}`}
-              src={`http://localhost:5000/artistProfile/${post?.postedBy?.profile}`}
+              src={`https://artflow.onrender.com/artistProfile/${post?.postedBy?.profile}`}
               alt="Michael Gough"
             />
             {post?.postedBy?.name}

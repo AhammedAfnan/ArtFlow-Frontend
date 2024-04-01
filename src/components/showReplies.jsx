@@ -14,7 +14,7 @@ const ShowReplies = ({ Reply, Post }) => {
           <img
             className="mr-2 w-6 h-6 rounded-full"
             // src={`${BASE_URL}/artistProfile/${Post?.postedBy?.profile}`}
-            src={`http://localhost:5000/artistProfile/${Post?.postedBy?.profile}`}
+            src={`https://artflow.onrender.com/artistProfile/${Post?.postedBy?.profile}`}
             alt="Michael Gough"
           />
           <p className="font-semibold">{Post?.postedBy?.name}</p>

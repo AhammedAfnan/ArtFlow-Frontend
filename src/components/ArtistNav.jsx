@@ -263,7 +263,7 @@ const ArtistNavbar = () => {
                         <img
                           className="h-8 w-8 rounded-full"
                           // src={`${BASE_URL}/artistProfile/${artist.profile}`}
-                          src={`http://localhost:5000/artistProfile/${artist.profile}`}
+                          src={`https://artflow.onrender.com/artistProfile/${artist.profile}`}
                           alt=""
                         />
                       </Menu.Button>

@@ -248,7 +248,7 @@ const Navbar = () => {
                         <img
                           className="h-8 w-8 rounded-full"
                           // src={`${BASE_URL}/userProfile/${user.profile}`}
-                          src={`http://localhost:5000/userProfile/${user.profile}`}
+                          src={`https://artflow.onrender.com/userProfile/${user.profile}`}
                           alt=""
                         />
                       </Menu.Button>

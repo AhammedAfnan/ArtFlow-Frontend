@@ -63,7 +63,7 @@ function UserProfile() {
           <img
             className="w-36 mx-auto rounded-full -mt-20 border-2 border-gray-800 "
             // src={`${BASE_URL}/userProfile/${user?.profile}`}
-            src={`http://localhost:5000/userProfile/${user.profile}`}
+            src={`https://artflow.onrender.com/userProfile/${user.profile}`}
             alt=""
           />
           <div className="uppercase text-center mt-2 text-3xl font-medium">

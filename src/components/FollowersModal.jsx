@@ -88,7 +88,7 @@ const FollowersModal = ({ isOpen, closeModal, artistId }) => {
               <img
                 className="h-8 w-8 rounded-full mr-2"
                 // src={`${BASE_URL}/userProfile/${follower?.profile}`}
-                src={`http://localhost:5000/userProfile/${follower?.profile}`}
+                src={`https://artflow.onrender.com/userProfile/${follower?.profile}`}
                 alt=""
               />
               <div className="flex-grow flex justify-between">

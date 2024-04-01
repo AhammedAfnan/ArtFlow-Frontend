@@ -36,7 +36,7 @@ const Artists = () => {
         <img
           className="h-10 w-10 rounded-full"
           // src={`${BASE_URL}/artistProfile/${row?.profile}`}
-          src={`http://localhost:5000/artistProfile/${row?.profile}`}
+          src={`https://artflow.onrender.com/artistProfile/${row?.profile}`}
           alt="image"
         />
       ),

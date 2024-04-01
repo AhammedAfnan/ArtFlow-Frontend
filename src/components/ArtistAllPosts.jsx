@@ -77,7 +77,7 @@ const PostCard = ({ post, onLike, onUnLike, getPosts }) => {
       <img
         className="w-full h-42 object-cover"
         // src={`${BASE_URL}/artistPosts/${post.image}`}
-        src={`http://localhost:5000/artistPosts/${post.image}`}
+        src={`https://artflow.onrender.com/artistPosts/${post.image}`}
         alt={post.title}
       />
       <div className="p-4">
