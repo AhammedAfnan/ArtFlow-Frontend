@@ -16,7 +16,7 @@ import { apiEndPoints } from "../util/api";
 import toast from "react-hot-toast";
 import socket from "./SocketIo";
 import CallingUi from "./CallingUi";
-import  BASE_URL  from "../config/api";
+import BASE_URL from "../config/api";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ const Navbar = () => {
   const [sender, setSender] = useState({});
   const [meetLink, setMeetLink] = useState("");
   const [MsgCount, setMsgCount] = useState(0);
-  const [openVideoCallModal, setOpenVideoCAllModal] = useState(false);
+  const [openVideoCallModal, setOpenVideoCallModal] = useState(false);
 
   useEffect(() => {
     // Handle the notification event
@@ -38,7 +38,7 @@ const Navbar = () => {
     socket.on("videoCallInvitation", (data) => {
       setSender(data?.sender);
       setMeetLink(data?.meetLink);
-      setOpenVideoCAllModal(true);
+      setOpenVideoCallModal(true);
     });
 
     return () => {
@@ -52,8 +52,9 @@ const Navbar = () => {
       userId: sender._id,
       accepted: false,
     });
-    setOpenVideoCAllModal(false);
+    setOpenVideoCallModal(false);
   };
+  
   const customStyles = {
     content: {
       top: "30%",
@@ -146,6 +147,7 @@ const Navbar = () => {
   const handleLogout = async () => {
     dispatch(logoutUser());
   };
+
   const userNavigation = [
     { name: "Your Profile", navigation: ServerVariables.userProfile },
     { name: "Logout", navigation: "#" },
@@ -179,14 +181,12 @@ const Navbar = () => {
                             state: { data: item.name },
                           })
                         }
-                        className={
+                        className={classNames(
                           item.name === activeItem
-                            ? "bg-blue-900 text-white rounded-md px-3 py-2 text-sm font-medium cursor-pointer"
-                            : "text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium cursor-pointer"
-                        }
-                        aria-current={
-                          item.name === activeItem ? "page" : undefined
-                        }
+                            ? "bg-blue-900 text-white rounded-md px-4 py-3 text-base font-medium"
+                            : "text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-4 py-3 text-base font-medium"
+                        )}
+                        aria-current={item.name === activeItem ? "page" : undefined}
                       >
                         {item.name}
                       </a>
@@ -201,22 +201,15 @@ const Navbar = () => {
                     className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                     onClick={() => navigate(ServerVariables.chatWithArtist)}
                   >
-                    <span className="absolute -inset-1.5" />
                     <span className="sr-only">View Chats</span>
-                    <div className="relative inline-block">
-                      <ChatBubbleLeftRightIcon
-                        className="h-6 w-6"
-                        aria-hidden="true"
-                      />
-
-                      {/* {MsgCount > 0 && (
+                    <ChatBubbleLeftRightIcon className="h-6 w-6" aria-hidden="true" />
+                    {/* {MsgCount > 0 && (
                         <>
                           <span className="absolute top-0  bg-red-500 text-white rounded-full px-1  text-xs">
                             {adjustedMsgcount}
                           </span>
                         </>
                       )} */}
-                    </div>
                   </button>
 
                   <button
@@ -224,31 +217,20 @@ const Navbar = () => {
                     className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                     onClick={() => navigate(ServerVariables.userNotifications)}
                   >
-                    <span className="absolute -inset-1.5" />
                     <span className="sr-only">View notifications</span>
-                    <div className="relative inline-block">
-                      <BellIcon className="h-6 w-6" aria-hidden="true" />
-
-                      {/* {Ntcount > 0 && (
-                        <>
-                          <span className="absolute top-0  bg-red-500 text-white rounded-full px-1  text-xs">
-                            {adjustedNtcount}
-                          </span>
-                        </>
-                      )} */}
-                    </div>
+                    <BellIcon className="h-6 w-6" aria-hidden="true" />
+                    {/* {Ntcount > 0 && (
+                      <span className="absolute top-0 right-0 inline-flex h-3 w-3 rounded-full bg-red-600"></span>
+                    )} */}
                   </button>
 
-                  {/* Profile dropdown */}
                   <Menu as="div" className="relative ml-3">
                     <div>
                       <Menu.Button className="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                        <span className="absolute -inset-1.5" />
                         <span className="sr-only">Open user menu</span>
                         <img
                           className="h-8 w-8 rounded-full"
-                          // src={`${BASE_URL}/userProfile/${user.profile}`}
-                          src={`https://artflow.onrender.com/userProfile/${user.profile}`}
+                          src={`${BASE_URL}/userProfile/${user.profile}`}
                           alt=""
                         />
                       </Menu.Button>
@@ -288,9 +270,7 @@ const Navbar = () => {
                 </div>
               </div>
               <div className="-mr-2 flex md:hidden">
-                {/* Mobile menu button */}
-                <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                  <span className="absolute -inset-0.5" />
+                <Disclosure.Button className="inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
                     <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
@@ -302,7 +282,7 @@ const Navbar = () => {
             </div>
           </div>
 
-          <Disclosure.Panel className="md:hidden">
+          <Disclosure.Panel className="md:hidden bg-gray-700">
             <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
               {navigation.map((item) => (
                 <Disclosure.Button
@@ -311,104 +291,49 @@ const Navbar = () => {
                   onClick={() => {
                     navigate(item.navigation, { state: { data: item.name } });
                   }}
-                  className={
+                  className={classNames(
                     item.name === activeItem
-                      ? "bg-gray-900 text-white"
-                      : "text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
-                  }
+                      ? "bg-gray-900 text-white block rounded-md px-4 py-3 text-lg font-semibold"
+                      : "text-gray-300 hover:bg-gray-600 hover:text-white block rounded-md px-4 py-3 text-lg font-semibold"
+                  )}
                   aria-current={item.name === activeItem ? "page" : undefined}
                 >
                   {item.name}
                 </Disclosure.Button>
               ))}
-            </div>
-            <div className="border-t border-gray-700 pb-3 pt-4">
-              <div className="flex items-center px-5">
-                <div className="flex-shrink-0">
-                  <img
-                    className="h-10 w-10 rounded-full"
-                    src={`${BASE_URL}/userProfile/${user.profile}`}
-                    alt=""
-                  />
+              {/* <div className="border-t border-gray-600 my-2"></div>
+              <div className="flex items-center px-5 space-x-4">
+                <img
+                  className="h-10 w-10 rounded-full"
+                  src={`${BASE_URL}/userProfile/${user.profile}`}
+                  alt="User Profile"
+                />
+                <div className="text-base font-medium text-white">
+                  {user.name}
                 </div>
-                <div className="ml-3">
-                  <div className="text-base font-medium leading-none text-white">
-                    {user.name}
-                  </div>
-                  <div className="text-sm font-medium leading-none text-gray-400">
-                    {user.email}
-                  </div>
-                </div>
-                <button
-                  type="button"
-                  className="relative ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                  onClick={() => navigate(ServerVariables.chatWithArtist)}
+              </div> */}
+              {/* <div className="border-t border-gray-600 my-2"></div> */}
+              {userNavigation.map((item) => (
+                <Disclosure.Button
+                  key={item.name}
+                  as="a"
+                  onClick={() =>
+                    item.name === "Logout" ? handleLogout() : navigate(item.navigation)
+                  }
+                  className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-600 hover:text-white"
                 >
-                  <span className="absolute -inset-1.5" />
-                  <span className="sr-only">View Chats</span>
-                  <ChatBubbleLeftRightIcon
-                    className="h-6 w-6"
-                    aria-hidden="true"
-                  />
-                  {/* {MsgCount > 0 && (
-                    <>
-                      <span className="absolute top-0  bg-red-500 text-white rounded-full px-1  text-xs">
-                        {adjustedMsgcount}
-                      </span>
-                    </>
-                  )} */}
-                </button>
-                <button
-                  type="button"
-                  className="relative ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                  onClick={() => navigate(ServerVariables.userNotifications)}
-                >
-                  <span className="absolute -inset-1.5" />
-                  <span className="sr-only">View notifications</span>
-                  <div className="relative inline-block">
-                    <BellIcon className="h-6 w-6" aria-hidden="true" />
-
-                    {/* {Ntcount > 0 && (
-                      <>
-                        <span className="absolute top-0  bg-red-500 text-white rounded-full px-1  text-xs">
-                          {adjustedNtcount}
-                        </span>
-                      </>
-                    )} */}
-                  </div>{" "}
-                </button>
-              </div>
-              <div className="mt-3 space-y-1 px-2">
-                {userNavigation.map((item) => (
-                  <Disclosure.Button
-                    key={item.name}
-                    as="a"
-                    onClick={() =>
-                      item.name === "Logout"
-                        ? handleLogout()
-                        : navigate(item.navigation)
-                    }
-                    className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
-                  >
-                    {item.name}
-                  </Disclosure.Button>
-                ))}
-              </div>
+                  {item.name}
+                </Disclosure.Button>
+              ))}
             </div>
           </Disclosure.Panel>
           <Modal
             isOpen={openVideoCallModal}
             onRequestClose={closeModal}
-            ariaHideApp={false}
             style={customStyles}
+            contentLabel="Video Call Invitation"
           >
-            {/* Use the CommentModal component */}
-            <CallingUi
-              isOpen={openVideoCallModal}
-              closeModal={closeModal}
-              sender={sender}
-              link={meetLink}
-            />
+            <CallingUi meetLink={meetLink} sender={sender} closeModal={closeModal} />
           </Modal>
         </>
       )}
