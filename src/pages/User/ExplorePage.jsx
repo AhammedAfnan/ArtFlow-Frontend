@@ -8,22 +8,31 @@ import { useSelector } from "react-redux";
 function ExplorePage() {
   const { user } = useSelector((state) => state.Auth);
   return (
-    <>
-      <Navbar />
-      <div className="flex gap-4 flex-wrap"> {/* Added flex-wrap and gap for responsiveness */}
-        <div className="hidden md:block w-1/5 p-6">
-          <ProfileCard user={user} />
-        </div>
-        <div className="w-full md:w-2/4">
-          <div className="max-w-3xl mx-auto px-4"> {/* Same container logic as UserHome */}
-            <PostCard />
-          </div>
-        </div>
-        <div className="hidden md:block mt-6 -ml-10">
-          <ContactCard />
-        </div>
+<>
+  <Navbar />
+  <div className="flex flex-wrap justify-center gap-4"> {/* Centers the contents and adds space between them */}
+    {/* Profile Card Section */}
+    <div className="hidden md:block md:w-1/3 lg:w-1/5 p-6"> 
+      {/* Adjusted widths for md and lg */}
+      <ProfileCard user={user} />
+    </div>
+
+    {/* Post Card Section */}
+    <div className="w-full md:w-1/2 lg:w-2/5 md:ml-0 lg:ml-8"> 
+      {/* Full width on mobile, half width on tablet, 2/5 on large screens */}
+      <div className="max-w-3xl mx-auto px-4">
+        <PostCard />
       </div>
-    </>
+    </div>
+
+    {/* Contact Card Section */}
+    <div className="hidden md:block md:w-1/3 lg:w-1/5 lg:ml-8 mt-6"> 
+      {/* Adjusted widths and margin for better positioning */}
+      <ContactCard />
+    </div>
+  </div>
+</>
+
   );
 }
 

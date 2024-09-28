@@ -11,7 +11,7 @@ const ContactCard = () => {
       whileHover={{scale:1.012}}
       className="bg-gradient-to-r from-pink-400 via-purple-500 to-indigo-500 p-6 rounded-md shadow-md text-white mb-4 fixed top-40 w-full sm:w-1/2 md:w-1/3"
     >
-      <h2 className="text-2xl font-semibold mb-4">Contact Us</h2>
+      <h2 className="text-xl font-semibold mb-4">Contact Us</h2>
       <div className="flex items-center mb-2">
         <span className="mr-2">&#128231;</span>
         <p>afnanballoor44@gmail.com</p>
