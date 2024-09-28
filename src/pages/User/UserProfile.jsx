@@ -53,55 +53,55 @@ function UserProfile() {
   return (
     <>
       <Navbar />
-      <motion.div
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="bg-gray-100 font-sans min-h-screen w-full flex flex-row justify-center items-center"
-      >
-        <div className="card w-96 h-90 mx-auto bg-gray-300 text-grey-800 shadow-xl hover:shadow">
-          <img
-            className="w-36 mx-auto rounded-full -mt-20 border-2 border-gray-800 "
-            // src={`${BASE_URL}/userProfile/${user?.profile}`}
-            src={`https://artflow.onrender.com/userProfile/${user.profile}`}
-            alt=""
-          />
-          <div className="uppercase text-center mt-2 text-3xl font-medium">
-            {user.name}
-          </div>
-          <div className="uppercase text-center mt-2 font-semibold text-sm">
-            <h2>Email: {user?.email}</h2>
-          </div>
-          <div className="text-center font-normal text-lg"></div>
-          <div className="uppercase text-center mt-2 font-semibold text-sm">
-            <h2>Mobile: {user?.mobile} </h2>
-          </div>
-          <div className="text-center font-normal text-lg"></div>
+      {/* Responsive container without any border or background color */}
+      <div className="container mx-auto px-4 flex items-center justify-center min-h-screen">
+        <motion.div
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="w-full max-w-lg p-6"
+        >
+          <div className="card bg-gray-200 text-gray-800 w-full">
+            <img
+              className="w-36 mx-auto rounded-full -mt-16 border-4 border-gray-800"
+              src={`https://artflow.onrender.com/userProfile/${user.profile}`}
+              alt=""
+            />
+            <div className="uppercase text-center mt-4 text-3xl font-medium">
+              {user.name}
+            </div>
+            <div className="uppercase text-center mt-2 font-semibold text-sm">
+              <h2>Email: {user?.email}</h2>
+            </div>
+            <div className="uppercase text-center mt-2 font-semibold text-sm">
+              <h2>Mobile: {user?.mobile}</h2>
+            </div>
 
-          <hr className="mt-8" />
-          <div className="flex p-4 justify-center" onClick={openModal}>
-            <p className="font-bold text-center cursor-pointer">
-              {user?.followings?.length} Following
-            </p>
-          </div>
-          <div className="flex justify-center">
-            <p
-              className="font-bold text-center cursor-pointer"
-              onClick={() => navigate(ServerVariables.editUserProfile)}
+            <hr className="mt-8" />
+            <div className="flex p-4 justify-center" onClick={openModal}>
+              <p className="font-bold text-center cursor-pointer">
+                {user?.followings?.length} Following
+              </p>
+            </div>
+            <div className="flex justify-center">
+              <p
+                className="font-bold text-center cursor-pointer"
+                onClick={() => navigate(ServerVariables.editUserProfile)}
+              >
+                <EditIcon />
+              </p>
+            </div>
+            <Modal
+              isOpen={isModalOpen}
+              onRequestClose={closeModal}
+              ariaHideApp={false}
+              style={customStyles}
             >
-              <EditIcon />
-            </p>
+              <FollowingsModal isOpen={isModalOpen} closeModal={closeModal} />
+            </Modal>
           </div>
-          <Modal
-            isOpen={isModalOpen}
-            onRequestClose={closeModal}
-            ariaHideApp={false}
-            style={customStyles}
-          >
-            <FollowingsModal isOpen={isModalOpen} closeModal={closeModal} />
-          </Modal>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
     </>
   );
 }
