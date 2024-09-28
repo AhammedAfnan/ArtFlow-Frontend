@@ -39,16 +39,17 @@ const ArtistProfile = () => {
   return (
     <>
       <ArtistNavbar />
+      <div className="container mx-auto px-4 flex items-center justify-center min-h-screen">
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="bg-gray-100 font-sans min-h-screen w-full  flex flex-row justify-center items-center"
+        className="w-full max-w-lg p-6"
       >
         {/* Increase width and height of the outer div */}
-        <div className="card w-96 h-100 mx-auto  bg-gray-300  text-grey-800 shadow-xl hover:shadow">
+        <div className="card bg-gray-200 text-gray-800 w-full">
           <img
-            className="w-36 mx-auto rounded-full -mt-20 border-2 border-gray-800 "
+            className="w-36 mx-auto rounded-full -mt-16 border-4 border-gray-800"
             // src={`${BASE_URL}/artistProfile/${artist.profile}`}
             src={`https://artflow.onrender.com/artistProfile/${artist.profile}`}
             alt=""
@@ -129,6 +130,7 @@ const ArtistProfile = () => {
           </Modal>
         </div>
       </motion.div>
+      </div>
     </>
   );
 };
