@@ -87,7 +87,7 @@ const ArtistRegister = () => {
   }
 })
     return (
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center min-h-screen p-4">
           <div className="bg-black text-white p-8 rounded shadow-md w-9/12">
             <img
               src="/images/userImages/hub1.png"
@@ -305,7 +305,7 @@ const ArtistRegister = () => {
                       htmlFor="qualification"
                       className="block text-sm font-medium leading-6 text-white-200"
                     >
-                      Educational Qualification
+                      Edu. Qualification
                     </label>
                     <input
                       type="text"
