@@ -8,7 +8,7 @@ const ProfileCard = ({ user }) => {
       initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="bg-gray-200 p-4 rounded-md shadow-md lg:w-1/4 h-92  fixed top-40"
+      className="bg-gray-200 p-4 rounded-md shadow-md lg:w-1/5 h-92  fixed top-40"
     >
       <div className="flex flex-col items-center">
         <img

@@ -48,45 +48,49 @@ function VerifyEmail() {
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <div className="bg-black text-white p-8 rounded shadow-md w-96 text-center">
-        <img
-          src="/images/userImages/hub1.png"
-          alt="Logo"
-          className="h-28 w-44 mx-auto"
-        />
-        <h2 className="text-2xl font-bold mb-6">Email Verification</h2>
-        {error ? <p className="text-sm font-bold text-red-600">{error}</p> : ""}
-        <form>
-          <div className="flex justify-between  mb-4">
-            <div className="text-center w-full">
-              <input
-                type="text"
-                name="email"
-                placeholder="please enter your email.."
-                className="text-black w-full p-2 border border-gray-300 rounded"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
+      {/* Parent Container with Padding */}
+      <div className="px-4 sm:px-6 md:px-8 lg:px-12 w-full max-w-md">
+        <div className="bg-black text-white p-8 rounded shadow-md w-full text-center">
+          <img
+            src="/images/userImages/hub1.png"
+            alt="Logo"
+            className="h-28 w-44 mx-auto"
+          />
+          <h2 className="text-2xl font-bold mb-6">Email Verification</h2>
+          {error ? <p className="text-sm font-bold text-red-600">{error}</p> : ""}
+  
+          <form>
+            <div className="mb-4">
+              <div className="text-center w-full">
+                <input
+                  type="text"
+                  name="email"
+                  placeholder="please enter your email.."
+                  className="text-black w-full p-2 border border-gray-300 rounded"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
             </div>
-          </div>
-
-          <div className="flex items-center justify-center">
-            <MyButton type='submit' text="Verify Email" onClick={handleVerifyEmail} />
-          </div>
-        </form>
-
-        <p className="text-sm">
-          Back to
-          <a
-            className="text-blue-500"
-            onClick={() => navigate(ServerVariables.Login)}
-          >
-            Login
-          </a>
-        </p>
+  
+            <div className="flex items-center justify-center">
+              <MyButton type='submit' text="Verify Email" onClick={handleVerifyEmail} />
+            </div>
+          </form>
+  
+          <p className="text-sm mt-4">
+            Back to{" "}
+            <a
+              className="text-blue-500 cursor-pointer"
+              onClick={() => navigate(ServerVariables.Login)}
+            >
+              Login
+            </a>
+          </p>
+        </div>
       </div>
     </div>
-  );
+  );  
 }
 
 export default VerifyEmail;
