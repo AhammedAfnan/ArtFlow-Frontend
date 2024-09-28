@@ -100,8 +100,8 @@ const ArtistOtp = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen">
-      <div className="bg-black text-white p-8 rounded shadow-md w-96 text-center">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
+      <div className="w-full max-w-md mx-auto bg-black text-white p-8 rounded shadow-md text-center">
         <img
           src="/images/userImages/hub1.png"
           alt="Logo"
@@ -112,14 +112,14 @@ const ArtistOtp = () => {
           Please enter the otp that is sended to your email
         </p>
         <form onSubmit={formik.handleSubmit} noValidate>
-          <div className="flex justify-between  mb-4">
+          <div className="flex justify-between mb-6">
             {Array.from({ length: 4 }).map((_, index) => (
               <div key={index} className="w-1/4 mr-2">
                 <input
                   ref={(el) => (digitRefs.current[index] = el)}
                   type="text"
                   name={`digit${index + 1}`}
-                  className="text-black w-full p-2 border border-gray-300 rounded"
+                  className="text-black w-full p-2 border border-gray-300 rounded text-center"
                   maxLength="1"
                   value={formik.values[`digit${index + 1}`]}
                   onChange={(e) => handleInputChange(e, index)}
@@ -129,12 +129,12 @@ const ArtistOtp = () => {
             ))}
           </div>
 
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center mb-4">
             <MyButton text="Verify Otp" type='submit' />
           </div>
         </form>
 
-        <div className="flex-1 flex flex-col items-center justify-center">
+        <div className="flex items-center justify-center mb-4">
           {timer ? (
             <h1>{timer}</h1>
           ) : (
