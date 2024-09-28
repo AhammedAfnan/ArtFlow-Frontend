@@ -15,13 +15,12 @@ export const  ServerVariables = {
     changePassword:'/changePassword',
     userProfile:'/userProfile',
     editUserProfile:'/editUserProfile',
-    addPost:'/addPost',
     showArtists:'/showArtists',
     chatWithArtist:'/chatWithArtist',
     userNotifications:'/userNotifications',
     viewArtistDetails:'/viewArtistDetails',
     userVideoCall:'/userVideoCall/:roomId/:artistId',
-
+    
     //artistRoutes
     ArtistLogin:'/artistLogin',
     ArtistRegister:'/artistRegister',
@@ -31,6 +30,7 @@ export const  ServerVariables = {
     editArtistProfile:'/editArtistProfile',
     plansAvailable:'/plansAvailable',
     mySubscriptions:'/mySubscriptions',
+    addPost:'/addPost',
     artistPosts:'/artistPosts',
     successPage:'/successPage',
     errorPage:'/errorPage',

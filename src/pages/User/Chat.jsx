@@ -147,13 +147,13 @@ const ChatWithArtist = () => {
   return (
     <>
       <Navbar />
-      <div className="flex h-screen overflow-hidden">
+      <div className="flex flex-col h-screen overflow-hidden lg:flex-row">
         {/* Sidebar */}
 
-        <div className="w-1/4  bg-white border-r border-gray-300">
+        <div className="w-full lg:w-1/4  bg-white border-r border-gray-300">
           {/* Sidebar Header */}
           <header className="p-4 border-b border-gray-300 flex flex-col sm:flex-row lg:flex-row items-center justify-between  bg-gray-400 text-white">
-            <h1 className="text-2xl font-semibold">My chats</h1>
+            <h1 className="text-xl font-semibold">My chats</h1>
             <div className="relative flex items-center mt-2 sm:mt-0">
               <input
                 type="text"
