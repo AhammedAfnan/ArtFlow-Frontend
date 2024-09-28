@@ -22,7 +22,6 @@ function ProfileCard({ Artist }) {
   // const [isRatingModalOpen, setIsRatingModalOpen] = useState(false);
   // const averageRating = artist.ratings?.reduce((acc,rating)=>acc + rating?.rating,0)/artist?.ratings?.length || 0
 
-
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -100,26 +99,32 @@ function ProfileCard({ Artist }) {
 
   return (
     <>
-      <div className="relative max-w-md mx-auto md:max-w-2xl min-w-0 break-words  w-full mb-6 shadow-lg rounded-xl mt-20 bg-gray-100">
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="relative max-w-md mx-auto md:max-w-2xl min-w-0 break-words w-full mb-6 shadow-lg rounded-xl mt-8 md:mt-20 bg-gray-100 p-4 md:p-6">
+        {/* Back Button */}
         <IoArrowBackCircle
           size={30}
           fill="gray"
           onClick={() => window.history.back()}
+          className="absolute top-4 left-4 cursor-pointer"
         />
-        <div className="px-6">
+
+        <div className="px-4 md:px-6">
+          {/* Profile Image */}
           <div className="flex flex-wrap justify-center">
             <div className="w-full flex justify-center">
               <div className="relative">
                 <img
                   src={`${BASE_URL}/artistProfile/${artist?.profile}`}
-                  className="shadow-xl rounded-full align-middle absolute -m-16 -ml-20 lg:-ml-16 max-w-[150px]  border-2 border-[#0d0a17]"
+                  className="shadow-xl rounded-full align-middle absolute -m-16 md:-ml-20 lg:-ml-16 max-w-[100px] md:max-w-[150px] border-2 border-[#0d0a17]"
                   alt=""
                 />
               </div>
             </div>
-            <div className="w-full text-center mt-20">
-              <div className="flex justify-center lg:pt-4 pt-8 pb-0">
-                <div className="p-3 text-center">
+            {/* Posts and Followers */}
+            <div className="w-full text-center mt-16 md:mt-20">
+              <div className="flex justify-center lg:pt-4 pt-6 pb-0 space-x-4 md:space-x-8">
+                <div className="p-2 text-center">
                   <span className="text-xl font-bold block uppercase tracking-wide text-slate-500">
                     {artist?.posts?.length}
                   </span>
@@ -127,7 +132,7 @@ function ProfileCard({ Artist }) {
                 </div>
 
                 <div
-                  className="p-3 text-center cursor-pointer"
+                  className="p-2 text-center cursor-pointer"
                   onClick={openModal}
                 >
                   <span className="text-xl font-bold block uppercase tracking-wide text-slate-500 ">
@@ -138,59 +143,53 @@ function ProfileCard({ Artist }) {
               </div>
             </div>
           </div>
-          {/* <span className="text-slate-500 cursor-pointer flex justify-center">
-              Rating: <StarRating rating={averageRating} />
-            </span> */}
-          <div className="text-center mt-2">
-            <h3 className="uppercase text-2xl text-slate-500 font-bold leading-normal mb-1">
+
+          {/* Artist Name and Field */}
+          <div className="text-center mt-10">
+            <h3 className="uppercase text-xl md:text-2xl text-slate-500 font-bold leading-normal mb-1">
               {artist?.name}
             </h3>
-            <div className="text-xs mt-0 mb-2 text-slate-400 font-bold uppercase">
+            <div className="text-xs md:text-sm mt-0 mb-2 text-slate-400 font-bold uppercase">
               {artist?.field} Artist
             </div>
           </div>
-          <div className="mt-6 py-6 border-t border-slate-500 text-center">
+
+          {/* Artist Details */}
+          <div className="mt-4 md:mt-6 py-4 md:py-6 border-t border-slate-500 text-center">
             <div className="flex flex-wrap justify-center">
               <div className="w-full px-4">
-                <p className="font-medium leading-relaxed text-slate-500 mb-4">
-                  INTEREST :{" "}
-                  {artist.interest ? `${artist.interest} images` : "Not Given"}
-                  {", "}
-                  QUALIFICATION :{" "}
+                <p className="font-medium leading-relaxed text-slate-500 mb-4 text-xs md:text-sm lg:text-base">
+                  INTEREST:{" "}
+                  {artist.interest ? `${artist.interest} images` : "Not Given"},
+                  QUALIFICATION:{" "}
                   {artist.educationalQualifications
                     ? `${artist.educationalQualifications}`
                     : "Not Given"}
-                  {", "}
-                  WORKS DONE(count):{" "}
-                  {artist.worksDone
-                    ? `${artist.worksDone} works `
-                    : "Not Given"}
-                  {", "}
-                  EXPERIENCE(years/month):{" "}
+                  , WORKS DONE(count):{" "}
+                  {artist.worksDone ? `${artist.worksDone} works` : "Not Given"}
+                  , EXPERIENCE(years/month):{" "}
                   {artist.YearOfExperience
                     ? `${artist.YearOfExperience}`
                     : "Not Given"}
-                  {", "}
-                  COMMUNICATION LANGUAGE: {artist.communicationLangauge}
-                  {", "}
-                  EMAIL: {artist.email}
-                  {", "}
-                  MOBILE NO: {artist.mobile}
+                  , COMMUNICATION LANGUAGE: {artist.communicationLangauge},
+                  EMAIL: {artist.email}, MOBILE NO: {artist.mobile}
                 </p>
+
+                {/* Follow/Unfollow Button */}
                 <a
                   href="javascript:;"
                   className="font-normal text-slate-700 hover:text-slate-400"
                 >
                   {artist?.followers?.includes(user._id) ? (
                     <button
-                      className="w-20 h-9 text-white bg-gray-600 rounded hover:bg-gray-700"
+                      className="w-24 h-9 text-white bg-gray-600 rounded hover:bg-gray-700"
                       onClick={() => handleUnFollow(artist._id)}
                     >
                       Following
                     </button>
                   ) : (
                     <button
-                      className="w-20 h-9 text-white bg-gray-800 rounded hover:bg-gray-950"
+                      className="w-24 h-9 text-white bg-gray-800 rounded hover:bg-gray-950"
                       onClick={() => handleFollow(artist._id)}
                     >
                       Follow
@@ -198,54 +197,24 @@ function ProfileCard({ Artist }) {
                   )}
                 </a>
               </div>
-              {/* {artist.ratings.some((rat) => rat.user === user._id) ? (
-                <>
-                <span className="text-black no-underline mt-2"> You have already rated this artist.... </span>
-                  <a
-                    className="text-blue-600 hover:text-blue-800 cursor-pointer underline mt-2"
-                    onClick={openRatingModal}
-                  >
-                    Edit it?
-                  </a>
-                </>
-              ) : (
-                <>
-                  <a
-                    className="text-blue-600 hover:text-blue-800 cursor-pointer underline mt-2"
-                    onClick={openRatingModal}
-                  >
-                    Rate this artist?
-                  </a>
-                </>
-              )} */}
-
-              <Modal
-                isOpen={isModalOpen}
-                onRequestClose={closeModal}
-                ariaHideApp={false}
-                style={customStyles}
-              >
-                <FollowersModal
-                  isOpen={isModalOpen}
-                  closeModal={closeModal}
-                  artistId={artist._id}
-                />
-              </Modal>
-              {/* <Modal
-                isOpen={isRatingModalOpen}
-                onRequestClose={closeRatingModal}
-                ariaHideApp={false}
-                style={customStyles}
-              >
-                <RatingModal
-                  isOpen={isRatingModalOpen}
-                  closeModal={closeRatingModal}
-                  artistId={artist._id}
-                />
-              </Modal> */}
             </div>
           </div>
         </div>
+
+        {/* Followers Modal */}
+        <Modal
+          isOpen={isModalOpen}
+          onRequestClose={closeModal}
+          ariaHideApp={false}
+          style={customStyles}
+        >
+          <FollowersModal
+            isOpen={isModalOpen}
+            closeModal={closeModal}
+            artistId={artist._id}
+          />
+        </Modal>
+      </div>
       </div>
     </>
   );
