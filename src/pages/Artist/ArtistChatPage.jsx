@@ -147,24 +147,23 @@ const ArtistChatPage = () => {
   return (
     <>
       <ArtistNavbar />
-      <div className="flex h-screen overflow-hidden">
+      <div className="flex flex-col h-screen overflow-hidden lg:flex-row">
         {/* Sidebar */}
-        <div className="w-1/4 bg-white border-r border-gray-300">
+        <div className="w-full lg:w-1/4 bg-white border-r border-gray-300">
           {/* Sidebar Header */}
-          <header className="p-4 border-b border-gray-300 flex justify-between items-center bg-gray-400 text-white">
-            <h1 className="text-2xl font-semibold">My chats</h1>
-            <div className="relative flex items-center mt-4 sm:mt-0">
+          <header className="p-4 border-b border-gray-300 flex flex-col sm:flex-row lg:flex-row justify-between items-center bg-gray-400 text-white">
+            <h1 className="text-xl font-semibold">My chats</h1>
+            <div className="relative flex items-center mt-2 sm:mt-0">
               <input
                 type="text"
                 placeholder="Search..."
-                className="border p-1 text-black sm:w-20 md:w-20 lg:w-40 xl:w-40" // Adjust width based on screen size
+                className="border p-1 text-black w-full sm:w-auto md:w-auto lg:w-40 xl:w-40" // Adjust width based on screen size
                 onChange={handleFilter}
               />
             </div>
           </header>
 
           {/* Contact List */}
-          <div className="overflow-y-auto h-screen p-3 mb-9 pb-20">
             {users.length ? (
               users.map((user) => (
                 <motion.div
@@ -336,7 +335,6 @@ const ArtistChatPage = () => {
             ""
           )}
         </div>
-      </div>
     </>
   );
 };
