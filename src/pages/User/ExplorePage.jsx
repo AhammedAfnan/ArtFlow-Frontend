@@ -7,32 +7,30 @@ import { useSelector } from "react-redux";
 
 function ExplorePage() {
   const { user } = useSelector((state) => state.Auth);
+  
   return (
-<>
-  <Navbar />
-  <div className="flex flex-wrap justify-center gap-4"> {/* Centers the contents and adds space between them */}
-    {/* Profile Card Section */}
-    <div className="hidden md:block md:w-1/3 lg:w-1/5 p-6"> 
-      {/* Adjusted widths for md and lg */}
-      <ProfileCard user={user} />
-    </div>
+    <>
+      <Navbar />
+      {/* Main container */}
+      <div className="flex flex-col sm:flex-row gap-6 md:gap-8 justify-center md:justify-between p-4">
+        {/* Profile Card - Hidden on mobile, visible on tablet and above */}
+        <div className="hidden sm:block sm:w-1/4 md:w-1/4 lg:w-1/5 xl:w-1/6 order-1 mb-4 md:mb-0 flex-shrink-0">
+          <ProfileCard user={user} />
+        </div>
 
-    {/* Post Card Section */}
-    <div className="w-full md:w-1/2 lg:w-2/5 md:ml-0 lg:ml-8"> 
-      {/* Full width on mobile, half width on tablet, 2/5 on large screens */}
-      <div className="max-w-3xl mx-auto px-4">
-        <PostCard />
+        {/* Post Card - Dynamic width on larger screens */}
+        <div className="w-full sm:w-2/3 md:w-1/2 lg:w-3/5 xl:w-1/2 order-2 mb-4 md:mb-0 flex-grow">
+          <div className="max-w-3xl mx-auto px-4">
+            <PostCard />
+          </div>
+        </div>
+
+        {/* Contact Card - Hidden on mobile, visible on tablet and above */}
+        <div className="hidden sm:block sm:w-1/4 md:w-1/4 lg:w-1/5 xl:w-1/6 order-3 flex-shrink-0 mt-6">
+          <ContactCard />
+        </div>
       </div>
-    </div>
-
-    {/* Contact Card Section */}
-    <div className="hidden md:block md:w-1/3 lg:w-1/5 lg:ml-8 mt-6"> 
-      {/* Adjusted widths and margin for better positioning */}
-      <ContactCard />
-    </div>
-  </div>
-</>
-
+    </>
   );
 }
 

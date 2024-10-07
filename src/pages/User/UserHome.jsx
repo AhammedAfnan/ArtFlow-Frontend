@@ -7,28 +7,29 @@ import ContactCard from "../../components/userComponents/ContactCard";
 
 const UserHome = () => {
   const { user } = useSelector((state) => state.Auth);
-return (
-  <>
-    <Navbar />
-    <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-      {/* Profile Card */}
-      <div className="w-full md:w-1/5 p-4 md:p-6 order-2 md:order-1">
-        <ProfileCard user={user} />
-      </div>
-      
-      {/* Post Card */}
-      <div className="w-full md:w-2/4 px-4 order-1 md:order-2">
-        <div className="max-w-3xl mx-auto">
+
+  return (
+    <>
+      <Navbar />
+      {/* Main container */}
+      <div className="flex flex-col sm:flex-row gap-6 md:gap-8 justify-center md:justify-between p-4">
+        {/* Profile Card - Hidden on mobile, visible on tablet and above */}
+        <div className="hidden sm:block sm:w-1/4 md:w-1/4 lg:w-1/5 xl:w-1/6 order-1 mb-4 md:mb-0 flex-shrink-0 md:mr-4 lg:mr-6">
+          <ProfileCard user={user} />
+        </div>
+
+        {/* Post Card - Dynamic width on larger screens */}
+        <div className="w-full sm:w-2/3 md:w-1/2 lg:w-3/5 xl:w-1/2 order-2 mb-4 md:mb-0 flex-grow">
           <PostCard />
         </div>
+
+        {/* Contact Card - Hidden on mobile, visible on tablet and above */}
+        <div className="hidden sm:block sm:w-1/4 md:w-1/4 lg:w-1/5 xl:w-1/6 order-3 flex-shrink-0 max-w-xs md:ml-4">
+          <ContactCard />
+        </div>
       </div>
-      
-      {/* Contact Card */}
-      <div className="w-full md:w-1/5 p-4 md:p-6 md:mt-0 order-3">
-        <ContactCard />
-      </div>
-    </div>
-  </>
-);
+    </>
+  );
 };
+
 export default UserHome;
