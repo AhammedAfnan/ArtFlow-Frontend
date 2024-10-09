@@ -1,7 +1,6 @@
 // eni aintokke routes eede eidnne .. backend le userRoutes page polthe frontend nte
 
 import React from 'react'
-import Toaster from 'react-hot-toast'
 import { useSelector } from 'react-redux';
 import {Routes,Route} from 'react-router-dom';
 import { ServerVariables } from './ServerVariables';
@@ -67,7 +66,7 @@ function AppRoutes () {
   return (
     <div>
       {/* loading spinner ui */}
-      {loading && (
+      {loading ? (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50 bg-gray-100 bg-opacity-90">
         <div className="text-blue-500 flex justify-center items-center">
           <svg
@@ -91,18 +90,13 @@ function AppRoutes () {
           </svg>
         </div>
       </div>
-      )}
-
-       {/* toast ui */}
-       <Toaster position="top-center" reverseOrder={false} />
+      ):null}
 
       <Routes>
 
         <Route path={ServerVariables.Landing} element={<LandingPage/>}/>
         <Route path='*' element={<ErrorPage/>}/>
 
-        
-        //userRoutes
         <Route element={<IsLoggedOutUser/>}>
           <Route path={ServerVariables.Register} element={<RegisterPage/>}/>
           <Route path={ServerVariables.verifyOtp} element={<OtpVerification />}/>
