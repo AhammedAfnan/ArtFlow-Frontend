@@ -8,7 +8,6 @@ export default function App() {
     <Router>
       <AppRoutes/>
     </Router>
-      <Toaster position="top-center" reverseOrder={false} />
     </>
   )
 }
