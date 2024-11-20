@@ -224,7 +224,7 @@ const PostCard = () => {
                   >
                     {post?.postedBy?.name}
                   </p>
-                  {user?.followings?.includes(post.postedBy._id) ? (
+                  {user?.followings?.includes(post.postedBy?._id) ? (
                     <button
                       className="bg-gray-500 w-20 text-center hover:bg-gray-600  rounded text-white"
                       onClick={() => handleUnFollow(post.postedBy._id)}
