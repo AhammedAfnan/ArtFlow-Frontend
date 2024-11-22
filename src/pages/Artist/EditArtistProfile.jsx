@@ -122,7 +122,7 @@ function EditArtistProfile() {
             src={
               selectedImage
                 ? URL.createObjectURL(selectedImage)
-                : `${BASE_URL}/artistProfile/${artist.profile}`
+                : `https://artflow.onrender.com/artistProfile/${artist.profile}`
             }
             alt=""
           />

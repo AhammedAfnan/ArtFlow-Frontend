@@ -146,7 +146,7 @@ const ArtistNavbar = () => {
   const artistData = {
     name: artist.name,
     email: artist.email,
-    imageUrl: `${BASE_URL}/artistProfile/${artist.profile}`,
+    imageUrl: `https://artflow.onrender.com/artistProfile/${artist.profile}`,
   };
 
   const navigation = [
@@ -262,7 +262,7 @@ const ArtistNavbar = () => {
                         <span className="sr-only">Open user menu</span>
                         <img
                           className="h-8 w-8 rounded-full"
-                          src={`${BASE_URL}/artistProfile/${artist.profile}`}
+                          src={`https://artflow.onrender.com/artistProfile/${artist.profile}`}
                           // src={`https://artflow.onrender.com/artistProfile/${artist.profile}`}
                           alt=""
                         />

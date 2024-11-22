@@ -176,7 +176,7 @@ const ChatWithArtist = () => {
               >
                 <div className="w-12 h-12 bg-gray-300 rounded-full mr-3">
                   <img
-                    src={`${BASE_URL}/artistProfile/${artist.profile}`}
+                    src={`https://artflow.onrender.com/artistProfile/${artist.profile}`}
                     // src={`https://artflow.onrender.com/userProfile/${artist.profile}`}
                     alt={`Avatar of ${artist.name}`}
                     className="w-12 h-12 rounded-full"
@@ -222,7 +222,7 @@ const ChatWithArtist = () => {
             {chatPartner ? (
               <>
                 <img
-                  src={`${BASE_URL}/artistProfile/${chatPartner?.artistId?.profile}`}
+                  src={`https://artflow.onrender.com/artistProfile/${chatPartner?.artistId?.profile}`}
                   // src={`https://artflow.onrender.com/artistProfile/${chatPartner?.artistId?.profile}`}
                   alt={`Avatar of ${chatPartner?.artistId?.name}`}
                   className="w-12 h-12 rounded-full mr-4"
@@ -269,8 +269,8 @@ const ChatWithArtist = () => {
                     <img
                       src={
                         isUserChat
-                          ? `${BASE_URL}/userProfile/${chatPartner?.userId?.profile}`
-                          : `${BASE_URL}/artistProfile/${chatPartner?.artistId?.profile}`
+                          ? `https://artflow.onrender.com/userProfile/${chatPartner?.userId?.profile}`
+                          : `https://artflow.onrender.com/artistProfile/${chatPartner?.artistId?.profile}`
                       }
                       alt={`${message.sender}'s Avatar`}
                       className="w-8 h-8 rounded-full"

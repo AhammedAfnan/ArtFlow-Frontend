@@ -50,7 +50,7 @@ const ArtistProfile = () => {
         <div className="card bg-gray-200 text-gray-800 w-full">
           <img
             className="w-36 mx-auto rounded-full -mt-16 border-4 border-gray-800"
-            src={`${BASE_URL}/artistProfile/${artist.profile}`}
+            src={`https://artflow.onrender.com/artistProfile/${artist.profile}`}
             // src={`https://artflow.onrender.com/artistProfile/${artist.profile}`}
             alt=""
           />

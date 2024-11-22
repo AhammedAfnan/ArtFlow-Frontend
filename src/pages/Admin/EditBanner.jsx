@@ -121,7 +121,7 @@ function EditBanner() {
                   <div className="card-body">
                     <div className="d-flex justify-content-center">
                       <img
-                        src={`${BASE_URL}/banners/${preview}`}
+                        src={`https://artflow.onrender.com/banners/${preview}`}
                         className="preview"
                         style={{
                           maxWidth: "200px",

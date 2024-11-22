@@ -80,7 +80,7 @@ function ArtistHome() {
               className="relative"
             >
               <img
-                src={`${BASE_URL}/artistProfile/${artist?.profile}`}
+                src={`https://artflow.onrender.com/artistProfile/${artist?.profile}`}
                 className="shadow-xl rounded-full align-middle absolute -m-12 sm:-m-16 -ml-16 lg:-ml-16 max-w-[100px] sm:max-w-[150px] border-2 border-[#0d0a17]"
                 alt=""
               />

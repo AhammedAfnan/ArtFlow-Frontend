@@ -28,8 +28,8 @@ const PostCard = ({ artist, onFollow, onUnFollow }) => {
     className="bg-white shadow-lg rounded-lg overflow-hidden m-4 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 relative">
       <img
         className="w-full h-42 object-cover"
-        // src={`${BASE_URL}/artistProfile/${artist.profile}`}
-        src={`${BASE_URL}/artistProfile/${artist.profile}`}
+        // src={`https://artflow.onrender.com/artistProfile/${artist.profile}`}
+        src={`https://artflow.onrender.com/artistProfile/${artist.profile}`}
         alt="Artist Profile"
         onClick={() =>
           navigate(ServerVariables.viewArtistDetails, {

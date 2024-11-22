@@ -115,7 +115,7 @@ function ProfileCard({ Artist }) {
             <div className="w-full flex justify-center">
               <div className="relative">
                 <img
-                  src={`${BASE_URL}/artistProfile/${artist?.profile}`}
+                  src={`https://artflow.onrender.com/artistProfile/${artist?.profile}`}
                   className="shadow-xl rounded-full align-middle absolute -m-16 md:-ml-20 lg:-ml-16 max-w-[100px] md:max-w-[150px] border-2 border-[#0d0a17]"
                   alt=""
                 />

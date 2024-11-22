@@ -13,7 +13,7 @@ const ShowReplies = ({ Reply, Post }) => {
         <div className="flex items-center mr-3 text-sm text-gray-950">
           <img
             className="mr-2 w-6 h-6 rounded-full"
-            src={`${BASE_URL}/artistProfile/${Post?.postedBy?.profile}`}
+            src={`https://artflow.onrender.com/artistProfile/${Post?.postedBy?.profile}`}
             // src={`https://artflow.onrender.com/artistProfile/${Post?.postedBy?.profile}`}
             alt="Michael Gough"
           />

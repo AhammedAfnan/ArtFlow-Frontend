@@ -88,7 +88,7 @@ function EditUserProfile() {
       src={
         selectedImage
           ? URL.createObjectURL(selectedImage)
-          : `${BASE_URL}/userProfile/${user.profile}`
+          : `https://artflow.onrender.com/userProfile/${user.profile}`
       }
       alt="Profile"
     />

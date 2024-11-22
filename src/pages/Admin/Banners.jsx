@@ -31,7 +31,7 @@ function Banners() {
       selector: (row) => (
         <img
           className="h-10 w-10 rounded-full"
-          src={`${BASE_URL}/banners/${row?.image}`}
+          src={`https://artflow.onrender.com/banners/${row?.image}`}
           // src={`https://artflow.onrender.com/banners/${row?.image}`}
           alt="image"
         />

@@ -115,7 +115,7 @@ const AddCommentModal = ({
         {selectedPost && (
           <img
             className="w-full h-42 object-cover"
-            src={`${BASE_URL}/artistPosts/${selectedPost?.image}`}
+            src={`https://artflow.onrender.com/artistPosts/${selectedPost?.image}`}
             // src={`https://artflow.onrender.com/artistPosts/${selectedPost?.image}`}
             alt={selectedPost?.title}
           />
@@ -128,7 +128,7 @@ const AddCommentModal = ({
                 <div className="flex items-center">
                   <img
                     className="h-8 w-8 rounded-full mr-2"
-                    src={`${BASE_URL}/userProfile/${comment?.postedBy?.profile}`}
+                    src={`https://artflow.onrender.com/userProfile/${comment?.postedBy?.profile}`}
                     // src={`https://artflow.onrender.com/userProfile/${comment?.postedBy?.profile}`}
                     alt=""
                   />

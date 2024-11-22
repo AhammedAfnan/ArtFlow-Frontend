@@ -164,7 +164,7 @@ const UserNotification = () => {
                     </p>
                     {item?.relatedPostId ? (
                       <img
-                        src={`${BASE_URL}/artistPosts/${item?.relatedPostId?.image}`}
+                        src={`https://artflow.onrender.com/artistPosts/${item?.relatedPostId?.image}`}
                         // src={`https://artflow.onrender.com/artistPosts/${item?.relatedPostId?.image}`}
                         className="w-10 h-10"
                         onClick={() => openModal(item?.relatedPostId)}

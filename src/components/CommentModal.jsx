@@ -74,7 +74,7 @@ const CommentModal = ({ isOpen, closeModal, Comments, post }) => {
       <div className="mt-4 mb-2">
         <img
           className="w-full h-42 object-cover"
-          src={`${BASE_URL}/artistPosts/${post.image}`}
+          src={`https://artflow.onrender.com/artistPosts/${post.image}`}
           // src={`https://artflow.onrender.com/artistPosts/${post.image}`}
           alt={post.title}
         />
@@ -86,7 +86,7 @@ const CommentModal = ({ isOpen, closeModal, Comments, post }) => {
                 <div className="flex items-center">
                   <img
                     className="h-8 w-8 rounded-full mr-2"
-                    src={`${BASE_URL}/userProfile/${comment?.postedBy?.profile}`}
+                    src={`https://artflow.onrender.com/userProfile/${comment?.postedBy?.profile}`}
                     // src={`https://artflow.onrender.com/userProfile/${comment?.postedBy?.profile}`}
                     alt=""
                   />
