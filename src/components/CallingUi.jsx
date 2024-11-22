@@ -35,15 +35,15 @@ const CallingUi = ({ isOpen, closeModal, sender, link }) => {
           >
             {sender.field ? (
               <img
-                // src={`${BASE_URL}/artistProfile/${sender?.profile}`}
-                src={`https://artflow.onrender.com/artistProfile/${sender?.profile}`}
+                src={`${BASE_URL}/artistProfile/${sender?.profile}`}
+                // src={`https://artflow.onrender.com/artistProfile/${sender?.profile}`}
                 className="w-full h-full object-cover rounded-3xl border-2 border-white"
                 alt=""
               />
             ) : (
               <img
-                // src={`${BASE_URL}/userProfile/${sender?.profile}`}
-                src={`https://artflow.onrender.com/userProfile/${sender?.profile}`}
+                src={`${BASE_URL}/userProfile/${sender?.profile}`}
+                // src={`https://artflow.onrender.com/userProfile/${sender?.profile}`}
                 className="w-full h-full object-cover rounded-3xl border-2 border-white"
                 alt=""
               />

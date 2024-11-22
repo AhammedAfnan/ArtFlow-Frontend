@@ -29,7 +29,7 @@ const PostCard = ({ artist, onFollow, onUnFollow }) => {
       <img
         className="w-full h-42 object-cover"
         // src={`${BASE_URL}/artistProfile/${artist.profile}`}
-        src={`https://artflow.onrender.com/artistProfile/${artist.profile}`}
+        src={`${BASE_URL}/artistProfile/${artist.profile}`}
         alt="Artist Profile"
         onClick={() =>
           navigate(ServerVariables.viewArtistDetails, {

@@ -30,7 +30,7 @@ const Users = () => {
             selector:(row) =>(
                 <img
                 className='h-10 w-10 rounded-full' 
-                src={`https://artflow.onrender.com/userProfile/${row?.profile}`}
+                src={`${BASE_URL}/userProfile/${row?.profile}`}
                 alt="image" 
                 />
             ),

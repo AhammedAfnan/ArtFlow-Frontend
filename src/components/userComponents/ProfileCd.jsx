@@ -13,8 +13,8 @@ const ProfileCard = ({ user }) => {
       <div className="flex flex-col items-center">
         <img
           className="h-20 w-20 rounded-full mb-4 mt-4"
-          // src={`${BASE_URL}/userProfile/${user.profile}`}
-          src={`https://artflow.onrender.com/userProfile/${user.profile}`}
+          src={`${BASE_URL}/userProfile/${user.profile}`}
+          // src={`https://artflow.onrender.com/userProfile/${user.profile}`}
           alt=""
         />
         <div className='mt-3'>

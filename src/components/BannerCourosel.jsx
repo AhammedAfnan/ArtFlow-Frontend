@@ -43,8 +43,8 @@ const BannerCarousel = ({ banners }) => {
       {banners.map((banner, index) => (
         <div key={index} className="relative">
           <img
-            // src={`${BASE_URL}/banners/${banner.image}`}
-            src={`https://artflow.onrender.com/banners/${banner.image}`}
+            src={`${BASE_URL}/banners/${banner.image}`}
+            // src={`https://artflow.onrender.com/banners/${banner.image}`}
             alt={`Banner ${index + 1}`}
             className="w-full h-auto"
           />

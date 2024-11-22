@@ -262,8 +262,8 @@ const ArtistNavbar = () => {
                         <span className="sr-only">Open user menu</span>
                         <img
                           className="h-8 w-8 rounded-full"
-                          // src={`${BASE_URL}/artistProfile/${artist.profile}`}
-                          src={`https://artflow.onrender.com/artistProfile/${artist.profile}`}
+                          src={`${BASE_URL}/artistProfile/${artist.profile}`}
+                          // src={`https://artflow.onrender.com/artistProfile/${artist.profile}`}
                           alt=""
                         />
                       </Menu.Button>
