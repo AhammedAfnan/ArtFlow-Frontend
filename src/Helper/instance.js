@@ -3,7 +3,7 @@
 
 import URL from '../config/api'
 import axios from 'axios';
-const user = axios.create({baseURL:URL.BASE_URL})
+const user = axios.create({baseURL:BASE_URL})
 
 // eente story enganen chelyeng, aaran user oo admin oo artist oo aaran oork ille access kodkan . ippo userRequest nte ullilek banneng
 // register cheythappo create aakiye token user.defaul..... eel bekkum . ennit error onnu illang .. onsuccess variable k option aayt nammmo
