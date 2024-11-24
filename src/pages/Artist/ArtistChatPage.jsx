@@ -307,7 +307,7 @@ const ArtistChatPage = () => {
                 <button
                   className="bg-indigo-500 text-white px-4 py-2 rounded-md ml-2"
                   onClick={() =>
-                    sendChatMessage(chatPartner?._id, chatPartner?.artistId._id)
+                    sendNewMessage(chatPartner?._id, chatPartner?.artistId._id)
                   }
                 >
                   Send
