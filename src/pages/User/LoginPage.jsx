@@ -39,7 +39,7 @@ const LoginPage = () => {
           className="h-28 w-44 mx-auto"
         />
         <h2 className="text-2xl font-bold mb-6 text-center">USER LOGIN</h2>
-  
+        {error ? <p className="text-sm font-bold text-red-600">{error}</p> : ""}
         <form onSubmit={formik.handleSubmit} noValidate>
           <div className="mb-4">
             <label className="block text-sm font-semibold text-gray-600">

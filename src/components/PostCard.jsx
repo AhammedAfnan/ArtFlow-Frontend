@@ -193,7 +193,7 @@ const PostCard = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center overflow-x-hidden">
         <div className="w-full max-w-2xl">
           {artistPosts?.length ? (
             artistPosts.map((post) => (

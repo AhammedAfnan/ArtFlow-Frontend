@@ -50,12 +50,12 @@ const RegisterPage = () => {
           dispatch(hideLoading());
           if (response.data.success) {
             navigate(ServerVariables.verifyOtp, {
-              state: { email: response.data.email }, // id verifyOtp k state-email aaknne thonn
+              state: { email: response.data.email },
             });
           } else {
             setError(response.data.error);
             setTimeout(() => {
-              setError(""); // idende korch nerathek mathro error vekkunne..
+              setError("");
             }, 2000);
           }
         })

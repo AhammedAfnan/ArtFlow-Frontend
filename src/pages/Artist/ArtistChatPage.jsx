@@ -147,29 +147,30 @@ const ArtistChatPage = () => {
   return (
     <>
       <ArtistNavbar />
-      <div className="flex flex-col h-screen overflow-hidden lg:flex-row">
+      <div className="flex flex-col h-screen lg:flex-row overflow-hidden">
         {/* Sidebar */}
-        <div className="w-full lg:w-1/4 bg-white border-r border-gray-300">
+        <div className="hidden lg:block w-full lg:w-1/4 bg-white border-r border-gray-300 overflow-hidden">
           {/* Sidebar Header */}
-          <header className="p-4 border-b border-gray-300 flex flex-col sm:flex-row lg:flex-row justify-between items-center bg-gray-400 text-white">
+          <header className="p-4 border-b border-gray-300 flex flex-col sm:flex-row lg:flex-row items-center justify-between bg-gray-400 text-white">
             <h1 className="text-xl font-semibold">My chats</h1>
             <div className="relative flex items-center mt-2 sm:mt-0">
               <input
                 type="text"
                 placeholder="Search..."
-                className="border p-1 text-black w-full sm:w-auto md:w-auto lg:w-40 xl:w-40" // Adjust width based on screen size
+                className="border p-1 text-black w-full sm:w-auto lg:w-auto xl:w-40"
                 onChange={handleFilter}
               />
             </div>
           </header>
-
-          {/* Contact List */}
+  
+          {/* Chat List */}
+          <div className="overflow-y-auto h-full">
             {users.length ? (
               users.map((user) => (
                 <motion.div
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={{ scale: 1.012 }}
                   key={user._id}
-                  className={`flex items-center mb-4 cursor-pointer shadow-md hover:bg-green-100 p-2 rounded-md ${
+                  className={`flex items-center mb-4 shadow-md cursor-pointer hover:bg-green-100 p-2 rounded-md ${
                     selectedUserId === user.userId._id ? "bg-green-100" : ""
                   }`}
                   onClick={() => handleUserClick(user.userId._id)}
@@ -177,33 +178,25 @@ const ArtistChatPage = () => {
                   <div className="w-12 h-12 bg-gray-300 rounded-full mr-3">
                     <img
                       src={`https://artflow.onrender.com/userProfile/${user.userId?.profile}`}
-                      // src={`https://artflow.onrender.com/userProfile/${user.userId?.profile}`}
                       alt={`Avatar of ${user.userId?.name}`}
                       className="w-12 h-12 rounded-full"
                     />
                   </div>
                   <div className="flex-1 flex justify-between">
                     <div>
-                      <h2 className="text-lg font-semibold">
-                        {user.userId?.name}
-                      </h2>
+                      <h2 className="text-lg font-semibold">{user.userId?.name}</h2>
                       {user?.latestMessage ? (
                         <p className="text-slate-600">
                           {user?.latestMessageSenderId !== user.userId._id
                             ? `You: ${user?.latestMessage}`
                             : `${user?.userId?.name}: ${user?.latestMessage}`}
                         </p>
-                      ) : (
-                        ""
-                      )}
+                      ) : null}
                     </div>
-
-                    {user?.unseenMessagesCount > 0 ? (
+                    {user?.unseenMessagesCount > 0 && (
                       <span className="bg-green-500 text-white rounded-full px-2 py-1 text-sm mr-2 sm:w-6 sm:h-7 sm:ml-2 md:text-xs">
                         {user?.unseenMessagesCount}
                       </span>
-                    ) : (
-                      ""
                     )}
                   </div>
                 </motion.div>
@@ -217,16 +210,15 @@ const ArtistChatPage = () => {
             )}
           </div>
         </div>
-
+  
         {/* Main Chat Area */}
-        <div className="flex-1">
+        <div className="flex-1 flex flex-col overflow-hidden">
           {/* Chat Header */}
           <header className="bg-green-100 p-4 text-gray-700 flex items-center justify-between">
             {chatPartner ? (
               <>
                 <img
                   src={`https://artflow.onrender.com/userProfile/${chatPartner?.userId?.profile}`}
-                  // src={`https://artflow.onrender.com/userProfile/${chatPartner?.userId?.profile}`}
                   alt={`Avatar of ${chatPartner?.userId?.name}`}
                   className="w-12 h-12 rounded-full mr-4"
                 />
@@ -237,81 +229,72 @@ const ArtistChatPage = () => {
                   height={40}
                   onClick={() =>
                     navigate(
-                      `/artistVideoCall/${chatPartner.artistId._id}/${chatPartner.userId._id}`
+                      `/artistVideoCall/${chatPartner?.artistId._id}/${chatPartner?.userId?._id}`
                     )
                   }
                 />
               </>
             ) : (
               <div className="flex-1 flex items-center justify-center">
-                <h1 className="text-2xl font-semibold">
-                  Select an user to message
-                </h1>
+                <h1 className="text-2xl font-semibold">Select a user to message</h1>
               </div>
             )}
           </header>
+  
           {/* Chat Messages */}
           <div
-            className="h-screen overflow-y-auto p-4 pb-36 bg-gray-200"
+            className="flex-1 overflow-y-auto p-4 bg-gray-200"
             ref={chatContainerRef}
           >
-            {chatHistory?.map((message) => {
-              const isArtistChat = message.senderId === message.artistId;
-              const timeAgo = formatDistanceToNow(new Date(message.time), {
-                addSuffix: true,
-              });
-
-              return (
-                <div
-                  key={message._id}
-                  className={`flex mb-4 cursor-pointer ${
-                    isArtistChat ? "justify-end" : "justify-start"
-                  }`}
-                >
-                  <div className="w-9 h-9 rounded-full flex items-center justify-center mr-2">
-                    <img
-                      src={
-                        isArtistChat
-                          ? `https://artflow.onrender.com/artistProfile/${chatPartner?.artistId?.profile}`
-                          : `https://artflow.onrender.com/userProfile/${chatPartner?.userId?.profile}`
-                      }
-                      alt={`${message.sender}'s Avatar`}
-                      className="w-8 h-8 rounded-full"
-                    />
-                  </div>
+            {chatHistory?.length > 0 ? (
+              chatHistory.map((message) => {
+                const isArtistChat = message.senderId === message.artistId;
+                const timeAgo = formatDistanceToNow(new Date(message.time), {
+                  addSuffix: true,
+                });
+  
+                return (
                   <div
-                    className={`flex max-w-96 ${
-                      isArtistChat
-                        ? "bg-indigo-500 text-white"
-                        : "bg-gray-300 text-gray-700"
-                    } rounded-lg p-3 gap-3`}
+                    key={message._id}
+                    className={`flex mb-4 cursor-pointer ${
+                      isArtistChat ? "justify-end" : "justify-start"
+                    }`}
                   >
-                    <p>{message.message}</p>
+                    <div className="w-9 h-9 rounded-full flex items-center justify-center mr-2">
+                      <img
+                        src={
+                          isArtistChat
+                            ? `https://artflow.onrender.com/artistProfile/${chatPartner?.artistId?.profile}`
+                            : `https://artflow.onrender.com/userProfile/${chatPartner?.userId?.profile}`
+                        }
+                        alt={`${message.sender}'s Avatar`}
+                        className="w-8 h-8 rounded-full"
+                      />
+                    </div>
+                    <div
+                      className={`flex max-w-96 ${
+                        isArtistChat
+                          ? "bg-indigo-500 text-white"
+                          : "bg-gray-300 text-gray-700"
+                      } rounded-lg p-3 gap-3`}
+                    >
+                      <p>{message.message}</p>
+                    </div>
                   </div>
-                  <div className="text-xs text-gray-500 ml-2 self-end">
-                    {timeAgo}{" "}
-                    {isArtistChat && message.isUserSeen ? (
-                      <>
-                        seen
-                        <CheckCircleIcon className="h-5 w-5 text-blue-500" />
-                      </>
-                    ) : (
-                      ""
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-            {chatHistory && chatHistory.length === 0 ? (
+                );
+              })
+            ) : (
               <div className="flex items-center justify-center mt-10 text-slate-500">
-                <h1 className="text-2xl font-semibold">Go and chat...</h1>
+                <h1 className="text-lg lg:text-2xl font-semibold">
+                  Go and chat...
+                </h1>
               </div>
-            ) : null}
+            )}
           </div>
-
+  
           {/* Chat Input */}
-          {chatPartner ? (
-            <footer className="bg-gray-100 border-t border-gray-500 p-4 fixed bottom-0 w-3/4">
+          {chatPartner && (
+            <footer className="bg-gray-100 border-t border-gray-500 p-4 sticky bottom-0">
               <div className="flex items-center">
                 <input
                   type="text"
@@ -323,20 +306,19 @@ const ArtistChatPage = () => {
                 />
                 <button
                   className="bg-indigo-500 text-white px-4 py-2 rounded-md ml-2"
-                  onClick={() => {
-                    sendNewMessage(chatPartner?._id, chatPartner?.userId._id);
-                  }}
+                  onClick={() =>
+                    sendChatMessage(chatPartner?._id, chatPartner?.artistId._id)
+                  }
                 >
                   Send
                 </button>
               </div>
             </footer>
-          ) : (
-            ""
           )}
         </div>
+      </div>
     </>
-  );
+  );  
 };
 
 export default ArtistChatPage;
