@@ -6,7 +6,7 @@ import {useDispatch} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
 import {ServerVariables} from '../../util/ServerVariables'
 import { loginThunk } from '../../redux/AuthSlice'
-
+  
 const loginSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
   password: Yup.string()

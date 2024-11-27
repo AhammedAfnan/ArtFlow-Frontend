@@ -54,7 +54,7 @@ const Navbar = () => {
     });
     setOpenVideoCallModal(false);
   };
-  
+
   const customStyles = {
     content: {
       top: "30%",
@@ -186,7 +186,9 @@ const Navbar = () => {
                             ? "bg-blue-900 text-white rounded-md px-4 py-3 text-base font-medium"
                             : "text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-4 py-3 text-base font-medium"
                         )}
-                        aria-current={item.name === activeItem ? "page" : undefined}
+                        aria-current={
+                          item.name === activeItem ? "page" : undefined
+                        }
                       >
                         {item.name}
                       </a>
@@ -202,7 +204,10 @@ const Navbar = () => {
                     onClick={() => navigate(ServerVariables.chatWithArtist)}
                   >
                     <span className="sr-only">View Chats</span>
-                    <ChatBubbleLeftRightIcon className="h-6 w-6" aria-hidden="true" />
+                    <ChatBubbleLeftRightIcon
+                      className="h-6 w-6"
+                      aria-hidden="true"
+                    />
                     {/* {MsgCount > 0 && (
                         <>
                           <span className="absolute top-0  bg-red-500 text-white rounded-full px-1  text-xs">
@@ -301,6 +306,21 @@ const Navbar = () => {
                   {item.name}
                 </Disclosure.Button>
               ))}
+
+              {/* Chat Button */}
+              <div className="flex items-center space-x-4 px-2 mt-3">
+                <button
+                  type="button"
+                  className="relative w-full flex justify-center rounded-md bg-gray-800 p-3 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  onClick={() => navigate(ServerVariables.chatWithArtist)}
+                >
+                  <span className="sr-only">View Chats</span>
+                  <ChatBubbleLeftRightIcon
+                    className="h-6 w-6"
+                    aria-hidden="true"
+                  />
+                </button>
+              </div>
               {/* <div className="border-t border-gray-600 my-2"></div>
               <div className="flex items-center px-5 space-x-4">
                 <img
@@ -318,7 +338,9 @@ const Navbar = () => {
                   key={item.name}
                   as="a"
                   onClick={() =>
-                    item.name === "Logout" ? handleLogout() : navigate(item.navigation)
+                    item.name === "Logout"
+                      ? handleLogout()
+                      : navigate(item.navigation)
                   }
                   className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-600 hover:text-white"
                 >
@@ -333,7 +355,11 @@ const Navbar = () => {
             style={customStyles}
             contentLabel="Video Call Invitation"
           >
-            <CallingUi meetLink={meetLink} sender={sender} closeModal={closeModal} />
+            <CallingUi
+              meetLink={meetLink}
+              sender={sender}
+              closeModal={closeModal}
+            />
           </Modal>
         </>
       )}

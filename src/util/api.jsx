@@ -19,7 +19,7 @@ export const apiEndPoints = {
     getArtistAllposts: "/api/user/getArtistAllposts",
     getAllBanners: "/api/user/getAllBanners",
     getComments: "/api/user/getComments",
-    // checkRole: "api/user/checkRole",
+    // checkRole: "api/user/checkRole", 
     getCurrentUser: "api/user/getCurrentUser",
     getArtistFollowers: "api/user/getArtistFollowers",
     getUserFollowings: "api/user/getUserFollowings",

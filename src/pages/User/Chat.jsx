@@ -1,326 +1,240 @@
-import React, { useEffect, useRef, useState } from "react";
-import Navbar from "../../components/Navbar";
-import { motion } from "framer-motion";
-import { useDispatch } from "react-redux";
-import { hideLoading, showLoading } from "../../redux/AlertSlice";
-import { userRequest } from "../../Helper/instance";
-import { apiEndPoints } from "../../util/api";
-import toast from "react-hot-toast";
-import { formatDistanceToNow } from "date-fns";
-import socket from "../../components/SocketIo";
-import { CheckCircleIcon, VideoCameraIcon } from "@heroicons/react/24/outline";
-import { useNavigate } from "react-router-dom";
-import BASE_URL from "../../config/api";
+  import React, { useState, useEffect, useRef } from 'react';
+  import { useDispatch } from 'react-redux'; 
+  import { motion } from 'framer-motion';
+  import { toast } from 'react-toastify';
+  import { userRequest } from "../../Helper/instance";
+  import Navbar from '../../components/Navbar';
+  import { CheckCircleIcon, VideoCameraIcon } from "@heroicons/react/24/outline"; 
+  import { hideLoading, showLoading } from "../../redux/AlertSlice";
+  import { apiEndPoints } from '../../util/api';
+  import { formatDistanceToNow } from "date-fns";
 
-const ChatWithArtist = () => {
-  const [artists, setArtists] = useState([]);
-  const dispatch = useDispatch();
-  const [chatHistory, setChatHistory] = useState([]);
-  const [newMessage, setNewMessage] = useState("");
-  const [filterData, setFilterData] = useState([]);
-  const [chatPartner, setChatPartner] = useState(null); // Updated to null
-  const [selectedArtistId, setSelectedArtistId] = useState(null);
-  const navigate = useNavigate();
-  const inputRef = useRef(null);
 
-  useEffect(() => {
-    getAllArtistsYouFollow();
-  }, []);
+  const ChatWithArtist = () => {
+    const [artists, setArtists] = useState([]);
+    const [chatHistory, setChatHistory] = useState([]);
+    const [newMessage, setNewMessage] = useState("");
+    const [filterData, setFilterData] = useState([]);
+    const [chatPartner, setChatPartner] = useState(null);
+    const [selectedArtistId, setSelectedArtistId] = useState(null);
+    const [showChat, setShowChat] = useState(false); // For toggling views on mobile/tablets
+    const dispatch = useDispatch();
+    const inputRef = useRef(null);
+    const chatContainerRef = useRef(null);
 
-  const getAllArtistsYouFollow = async () => {
-    dispatch(showLoading());
-    userRequest({
-      url: apiEndPoints.getArtistsFollowed,
-      method: "get",
-    }).then((res) => {
-      dispatch(hideLoading());
-      if (res.data.success) {
-        setArtists(res?.data?.artists);
-        setFilterData(res?.data?.artists);
-      } else {
-        toast.error(res.data.error);
+    useEffect(() => {
+      getAllArtistsYouFollow();
+    }, []);
+
+    const getAllArtistsYouFollow = async () => {
+      dispatch(showLoading());
+      try {
+        const res = await userRequest({
+          url: apiEndPoints.getArtistsFollowed,
+          method: "get",
+        });
+        dispatch(hideLoading());
+        if (res.data.success) {
+          setArtists(res.data.artists);
+          setFilterData(res.data.artists);
+        } else {
+          toast.error(res.data.error);
+        }
+      } catch (error) {
+        dispatch(hideLoading());
+        toast.error("Failed to load artists.");
       }
-    });
-  };
+    };
 
-  const fetchChatMessages = async (artistId) => {
-    dispatch(showLoading());
-    userRequest({
-      url: apiEndPoints.getChatMessages,
-      method: "post",
-      data: { artistId },
-    })
-      .then((response) => {
+    const fetchChatMessages = async (artistId) => {
+      dispatch(showLoading());
+      try {
+        const response = await userRequest({
+          url: apiEndPoints.getChatMessages,
+          method: "post",
+          data: { artistId },
+        });
         dispatch(hideLoading());
         if (response.data.success) {
           setNewMessage("");
-          socket.emit("setup", response.data?.userId);
-          socket.emit("join", response.data?.room_id);
-          setChatPartner(response.data?.Data);
-          setChatHistory(response.data?.msg);
-          getAllArtistsYouFollow();
+          setChatPartner(response.data.Data);
+          setChatHistory(response.data.msg);
+          setShowChat(true); // Switch to chat view on mobile/tablets
         }
-      })
-      .catch((err) => {
+      } catch (err) {
         dispatch(hideLoading());
-        console.log(err.message);
-        toast.error("something went wrong!");
-      });
-  };
-
-  const updateChatHistory = (message) => {
-    setChatHistory((prevHistory) => [...(prevHistory || []), message]);
-  };
-
-  useEffect(() => {
-    socket.on("message received", (message) => {
-      if (message.artistId === selectedArtistId) {
-        updateChatHistory(message);
-        fetchChatMessages(selectedArtistId);
-      } else {
-        getAllArtistsYouFollow();
+        toast.error("Something went wrong!");
       }
-    });
-    return () => {
-      socket.off("message received");
     };
-  }, [selectedArtistId]);
 
-  const sendChatMessage = async (room_id, artistId) => {
-    const Data = {
-      newMessage: newMessage,
-      r_id: room_id,
-      artistId,
-      time: new Date(),
+    const handleArtistClick = (artistId) => {
+      setSelectedArtistId(artistId);
+      fetchChatMessages(artistId);
     };
-    if (newMessage.trim() === "") {
-      return;
-    } else {
-      dispatch(showLoading());
-      userRequest({
-        url: apiEndPoints.sendNewMessage,
-        method: "post",
-        data: Data,
-      })
-        .then((response) => {
-          dispatch(hideLoading());
-          if (response.data.success) {
-            setNewMessage("");
-            fetchChatMessages(artistId);
 
-            var obj = response.data.data;
-            if (!obj.senderId) {
-              obj.senderId = response.data.data.userId;
-            }
+    const handleFilter = (e) => {
+      const newData = filterData.filter((item) =>
+        item.name.toLowerCase().includes(e.target.value.toLowerCase())
+      );
+      setArtists(newData);
+    };
 
-            socket.emit("chatMessage", obj);
-            const datas = response.data.data;
-            setChatHistory([...chatHistory, datas]);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  };
+    useEffect(() => {
+      if (chatContainerRef.current) {
+        chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+      }
+    }, [chatHistory]);
 
-  const handleArtistClick = (artistId) => {
-    fetchChatMessages(artistId);
-    setSelectedArtistId(artistId);
-    getAllArtistsYouFollow();
-    // Focus on the input field when an artist is selected
-    inputRef.current && inputRef.current.focus();
-  };
-
-  const chatContainerRef = useRef(null);
-  useEffect(() => {
-    chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
-  }, [chatHistory]);
-
-  const handleFilter = (e) => {
-    const newData = filterData?.filter((item) =>
-      item.name.toLowerCase().includes(e.target.value.toLowerCase())
-    );
-    setArtists(newData);
-  };
-
-  return (
-    <>
-      <Navbar />
-      <div className="flex flex-col h-screen overflow-hidden lg:flex-row">
-        <div className="hidden lg:block w-full lg:w-1/4 bg-white border-r border-gray-300">
-          {/* Sidebar Header */}
-          <header className="p-4 border-b border-gray-300 flex flex-col sm:flex-row lg:flex-row items-center justify-between bg-gray-400 text-white">
-            <h1 className="text-xl font-semibold">My chats</h1>
-            <div className="relative flex items-center mt-2 sm:mt-0">
+    return (
+      <>
+        <Navbar />
+        <div className="flex flex-col lg:flex-row h-screen overflow-hidden">
+          {/* Sidebar for artist list */}
+          <div
+            className={`w-full lg:w-1/4 bg-white border-r border-gray-300 flex flex-col ${
+              showChat ? "hidden lg:flex" : "flex"
+            }`}
+          >
+            <header className="p-4 border-b border-gray-300 bg-gray-400 text-white flex flex-col sm:flex-row justify-between items-center">
+              <h1 className="text-lg font-bold mb-2 sm:mb-0">My Chats</h1>
               <input
                 type="text"
                 placeholder="Search..."
-                className="border p-1 text-black w-full sm:w-auto lg:w-auto xl:w-40"
+                className="w-full sm:w-40 md:w-56 p-2 rounded-md text-black"
                 onChange={handleFilter}
               />
-            </div>
-          </header>
-
-          {artists.length ? (
-            artists.map((artist) => (
-              <motion.div
-                whileHover={{ scale: 1.012 }}
-                key={artist._id}
-                className={`flex items-center mb-4 shadow-md cursor-pointer hover:bg-green-100 p-2 rounded-md ${
-                  selectedArtistId === artist._id ? "bg-green-100" : ""
-                }`}
-                onClick={() => handleArtistClick(artist._id)}
-              >
-                <div className="w-12 h-12 bg-gray-300 rounded-full mr-3">
-                  <img
-                    src={`https://artflow.onrender.com/artistProfile/${artist.profile}`}
-                    alt={`Avatar of ${artist.name}`}
-                    className="w-12 h-12 rounded-full"
-                  />
-                </div>
-                <div className="flex-1 flex justify-between">
-                  <div>
-                    <h2 className="text-lg font-semibold">{artist.name}</h2>
-                    {artist?.latestMessage ? (
-                      <p className="text-slate-600">
-                        {artist?.latestMessageSenderId !== artist._id
-                          ? `You: ${artist?.latestMessage}`
-                          : `${artist?.name}: ${artist?.latestMessage}`}
-                      </p>
-                    ) : (
-                      ""
-                    )}
-                  </div>
-                  {artist?.unseenMessagesCount > 0 ? (
-                    <span className="bg-green-500 text-white rounded-full px-2 py-1 text-sm mr-2 sm:w-6 sm:h-7 sm:ml-2 md:text-xs">
-                      {artist?.unseenMessagesCount}
-                    </span>
-                  ) : (
-                    ""
-                  )}
-                </div>
-              </motion.div>
-            ))
-          ) : (
-            <div className="w-full p-4 flex items-center justify-center">
-              <div className="text-xl font-bold text-center">
-                No connections
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Main Chat Area */}
-        <div className="flex-1 flex flex-col">
-          {/* Chat Header */}
-          <header className="bg-green-100 p-4 text-gray-700 flex items-center justify-between">
-            {chatPartner ? (
-              <>
-                <img
-                  src={`https://artflow.onrender.com/artistProfile/${chatPartner?.artistId?.profile}`}
-                  alt={`Avatar of ${chatPartner?.artistId?.name}`}
-                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-full"
-                />
-                <h1 className="uppercase text-lg lg:text-2xl font-semibold ml-4">
-                  {chatPartner?.artistId?.name}
-                </h1>
-                <VideoCameraIcon
-                  className="h-6 w-6 sm:h-8 sm:w-8"
-                  onClick={() =>
-                    navigate(
-                      `/userVideoCall/${chatPartner?.userId?._id}/${chatPartner?.artistId?._id}`
-                    )
-                  }
-                />
-              </>
-            ) : (
-              <div className="flex-1 flex items-center justify-center">
-                <h1 className="text-lg lg:text-2xl font-semibold">
-                  Select an artist to message
-                </h1>
-              </div>
-            )}
-          </header>
-
-          {/* Chat Messages */}
-          <div
-            className="flex-1 overflow-y-auto p-4 bg-gray-200"
-            ref={chatContainerRef}
-          >
-            {chatHistory?.map((message) => {
-              const isUserChat = message.senderId === message.userId;
-              const timeAgo = formatDistanceToNow(new Date(message.time), {
-                addSuffix: true,
-              });
-
-              return (
-                <div
-                  key={message._id}
-                  className={`flex mb-4 ${
-                    isUserChat ? "justify-end" : "justify-start"
-                  }`}
-                >
-                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full mr-2">
-                    <img
-                      src={
-                        isUserChat
-                          ? `https://artflow.onrender.com/userProfile/${chatPartner?.userId?.profile}`
-                          : `https://artflow.onrender.com/artistProfile/${chatPartner?.artistId?.profile}`
-                      }
-                      alt={`${message.sender}'s Avatar`}
-                      className="w-full h-full rounded-full"
-                    />
-                  </div>
-                  <div
-                    className={`flex max-w-xs sm:max-w-sm ${
-                      isUserChat
-                        ? "bg-indigo-500 text-white"
-                        : "bg-gray-300 text-gray-700"
-                    } rounded-lg p-3`}
+            </header>
+            <div className="flex-1 overflow-y-auto h-full">
+              {artists.length ? (
+                artists.map((artist) => (
+                  <motion.div
+                    key={artist._id}
+                    className={`p-3 flex items-center cursor-pointer rounded-md ${
+                      selectedArtistId === artist._id
+                        ? "bg-green-100"
+                        : "hover:bg-green-50"
+                    }`}
+                    onClick={() => handleArtistClick(artist._id)}
                   >
-                    <p>{message.message}</p>
-                  </div>
-                  <div className="text-xs text-gray-500 ml-2">{timeAgo}</div>
-                </div>
-              );
-            })}
-            {chatHistory?.length === 0 && (
-              <div className="flex items-center justify-center mt-10 text-slate-500">
-                <h1 className="text-lg lg:text-2xl font-semibold">
-                  Go and chat...
-                </h1>
-              </div>
-            )}
+                    <img
+                      src={`https://artflow.onrender.com/artistProfile/${artist.profile}`}
+                      alt={`Avatar of ${artist.name}`}
+                      className="w-12 h-12 rounded-full mr-3"
+                    />
+                    <div className="flex-1">
+                      <h2 className="font-semibold truncate">{artist.name}</h2>
+                      <p className="text-sm text-gray-600 truncate">
+                        {artist.latestMessage || "No messages yet"}
+                      </p>
+                    </div>
+                  </motion.div>
+                  )
+                )
+              ) : (
+                <p className="text-center text-gray-500 mt-4">No artists found</p>
+              )}
+            </div>
           </div>
 
-          {/* Chat Input */}
-          {chatPartner && (
-            <footer className="bg-gray-100 border-t border-gray-500 p-4 sticky bottom-0">
-              <div className="flex items-center">
-                <input
-                  type="text"
-                  ref={inputRef}
-                  value={newMessage}
-                  onChange={(e) => setNewMessage(e.target.value)}
-                  placeholder="Type a message..."
-                  className="w-full p-2 rounded-md border border-gray-400 focus:outline-none focus:border-blue-500"
-                />
-                <button
-                  className="bg-indigo-500 text-white px-4 py-2 rounded-md ml-2"
-                  onClick={() =>
-                    sendChatMessage(chatPartner?._id, chatPartner?.artistId._id)
-                  }
-                >
-                  Send
-                </button>
-              </div>
-            </footer>
-          )}
-        </div>
-      </div>
-    </>
-  );
-};
+          {/* Chat Section */}
+          <div
+            className={`flex-1 flex flex-col overflow-hidden ${
+              showChat ? "flex" : "hidden lg:flex"
+            }`}
+          >
+            <header className="bg-green-100 p-4 border-b border-gray-300 flex items-center justify-between">
+              {chatPartner ? (
+                <>
+                  {/* <button
+                    onClick={() => setShowChat(false)}
+                    className="lg:hidden px-4 py-2 bg-gray-400 text-white rounded-md"
+                  >
+                    Back
+                  </button> */}
+                  <div className="flex items-center">
+                    <img
+                      src={`https://artflow.onrender.com/artistProfile/${chatPartner?.artistId?.profile}`}
+                      alt={`Avatar of ${chatPartner?.artistId?.name}`}
+                      className="w-12 h-12 rounded-full"
+                    />
+                  </div>
+                  <h1 className="uppercase font-semibold text-lg text-center flex-1">
+                    {chatPartner?.artistId?.name}
+                  </h1>
+                  <VideoCameraIcon
+                    height={40}
+                    onClick={() =>
+                      navigate(
+                        `/userVideoCall/${chatPartner?.userId._id}/${chatPartner?.artistId?._id}`
+                      )
+                    }
+                  />
+                </>
+              ) : (
+                <div className="flex-1 flex items-center justify-center">
+                  <h1 className="text-2xl font-semibold">
+                    Select an artist to message
+                  </h1>
+                </div>
+              )}
+            </header>
 
-export default ChatWithArtist;
+            <div
+              className="flex-1 overflow-y-auto p-4 bg-gray-200"
+              ref={chatContainerRef}
+            >
+              {chatHistory.length ? (
+                chatHistory.map((message, index) => (
+                  <div
+                    key={index}
+                    className={`flex ${
+                      message.senderId === message.userId
+                        ? "justify-end"
+                        : "justify-start"
+                    }`}
+                  >
+                    <div
+                      className={`p-3 rounded-lg ${
+                        message.senderId === message.userId
+                          ? "bg-indigo-500 text-white"
+                          : "bg-gray-300 text-black"
+                      }p-3 m-2 rounded-xl max-w-xs`}
+                    >
+                      {message.message}
+                      <div className="text-xs text-gray-600 mt-2">
+                        {formatDistanceToNow(new Date(message.time), {
+                          addSuffix: true,
+                        })}
+                      </div>  
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p className="text-center text-gray-500">Start a conversation</p>
+              )}
+            </div>
+
+            {chatPartner && (
+              <footer className="bg-gray-100 p-4">
+                <div className="flex items-center">
+                  <input
+                    type="text"
+                    ref={inputRef}
+                    value={newMessage}
+                    onChange={(e) => setNewMessage(e.target.value)}
+                    placeholder="Type a message..."
+                    className="flex-1 p-2 border rounded-md"
+                  />
+                  <button className="ml-2 bg-indigo-500 text-white px-4 py-2 rounded-md">
+                    Send
+                  </button>
+                </div>
+              </footer>
+            )}
+          </div>
+        </div>
+      </>
+    );
+  };
+
+  export default ChatWithArtist
