@@ -13,7 +13,7 @@ import { formatDistanceToNow } from "date-fns";
 const ChatWithArtist = () => {
   const [artists, setArtists] = useState([]);
   const navigate = useNavigate();
-  const [chatHistory, setChatHistory] = useState([]);
+  const [chatHistory, setChatHistory] = useState([]);   
   const [newMessage, setNewMessage] = useState("");
   const [filterData, setFilterData] = useState([]);
   const [chatPartner, setChatPartner] = useState(null);
@@ -160,13 +160,14 @@ const ChatWithArtist = () => {
                   />
                 </div>
                 <h1 className="uppercase font-semibold text-lg text-center flex-1">
-                  {chatPartner?.artistId?.name}
+                  {chatPartner?.artistId?.name}+
                 </h1>
                 <VideoCameraIcon
                   height={40}
                   onClick={() =>
                     navigate(
-                      `/userVideoCall/${chatPartner?.userId._id}/${chatPartner?.artistId?._id}`
+                      // `/userVideoCall/${chatPartner?.userId._id}/${chatPartner?.artistId?._id}`  
+                      `/userVideoCall/${chatPartner?.userId?._id}/${chatPartner?.artistId?._id}`
                     )
                   }
                 />

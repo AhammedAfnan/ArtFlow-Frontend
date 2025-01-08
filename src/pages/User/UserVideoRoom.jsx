@@ -87,7 +87,7 @@ function UserVideoCallRoom() {
 
   return (
     <>
-      <div className="flex-grow flex-shrink min-h-screen">
+      <div className="flex-grow flex-shrink min-h-screen md:min-h-[80vh] sm:min-h-[60vh]">
         {" "}
         <div ref={meeting} />
       </div>

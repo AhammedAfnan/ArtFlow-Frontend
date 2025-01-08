@@ -243,7 +243,8 @@ const ArtistChatPage = () => {
                   height={40}
                   onClick={() =>
                     navigate(
-                      `/artistVideoCall/${chatPartner?.artistId._id}/${chatPartner?.userId?._id}`
+                      // `/artistVideoCall/${chatPartner?.artistId._id}/${chatPartner?.userId?._id}`
+                      `/artistVideoCall/${chatPartner?.artistId?._id}/${chatPartner?.userId?._id}`
                     )
                   }
                 />
