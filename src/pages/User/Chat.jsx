@@ -1,3 +1,5 @@
+//line 10, 13,
+
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { motion } from "framer-motion";
@@ -107,7 +109,7 @@ const ChatWithArtist = () => {
             />
           </header>
           <div className="flex-1 overflow-y-auto h-full">
-            {artists.length ? (
+            {artists?.length ? (
               artists.map((artist) => (
                 <motion.div
                   key={artist._id}
@@ -160,7 +162,7 @@ const ChatWithArtist = () => {
                   />
                 </div>
                 <h1 className="uppercase font-semibold text-lg text-center flex-1">
-                  {chatPartner?.artistId?.name}+
+                  {chatPartner?.artistId?.name}
                 </h1>
                 <VideoCameraIcon
                   height={40}
@@ -185,7 +187,7 @@ const ChatWithArtist = () => {
             className="flex-1 overflow-y-auto p-4 bg-gray-200"
             ref={chatContainerRef}
           >
-            {chatHistory.length ? (
+            {chatHistory?.length ? (
               chatHistory.map((message, index) => (
                 <div
                   key={index}
