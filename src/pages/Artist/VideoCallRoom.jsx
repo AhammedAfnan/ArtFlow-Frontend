@@ -12,8 +12,8 @@ function ArtistVideoCallRoom() {
 
   useEffect(() => {
     const initZego = async () => {
-      const appID = 1622638410;
-      const serverSecret = "cd46070134cb244eb6f953a85a8a0dc7";
+      const appID = 1061768399;
+      const serverSecret = "08758e0914b538aaccae7c2f246b4168";
       const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
         appID,
         serverSecret,
