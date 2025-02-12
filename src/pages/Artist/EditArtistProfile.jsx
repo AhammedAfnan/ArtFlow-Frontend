@@ -112,7 +112,7 @@ function EditArtistProfile() {
     <>
       <ArtistNavbar />
       <div className="flex items-center  mt-11 justify-center">
-        <div className="bg-gray-100  text-gray-800 p-8 rounded shadow-md w-9/12 text-center">
+        <div className="bg-gray-300  text-gray-800 p-8 rounded shadow-md w-9/12 text-center">
           <h2 className="text-2xl font-bold mb-6 text-center">
             UPDATE PROFILE
           </h2>

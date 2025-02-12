@@ -80,7 +80,7 @@ function EditUserProfile() {
     <>
       <Navbar />
       <div className="flex items-center justify-center min-h-screen my-10 px-7 sm:px-6 md:px-10 lg:px-16">
-  <div className="bg-gray-100 text-gray-800 p-6 md:p-8 lg:p-10 rounded shadow-md text-center w-full max-w-xl mx-auto">
+  <div className="bg-gray-300 text-gray-800 p-6 md:p-8 lg:p-10 rounded shadow-md text-center w-full max-w-xl mx-auto">
     <h2 className="text-2xl font-bold mb-6">UPDATE PROFILE</h2>
     {error && <p className="text-red-600">{error}</p>}
     <img
@@ -88,7 +88,7 @@ function EditUserProfile() {
       src={
         selectedImage
           ? URL.createObjectURL(selectedImage)
-          : `https://artflow.onrender.com/userProfile/${user.profile}`
+          : user.profile
       }
       alt="Profile"
     />

@@ -64,7 +64,7 @@ function UserProfile() {
           <div className="card bg-gray-200 text-gray-800 w-full">
             <img
               className="w-36 mx-auto rounded-full -mt-16 border-4 border-gray-800"
-              src={`https://artflow.onrender.com/userProfile/${user.profile}`}
+              src={user.profile}
               alt=""
             />
             <div className="uppercase text-center mt-4 text-3xl font-medium">

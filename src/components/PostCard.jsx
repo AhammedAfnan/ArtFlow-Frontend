@@ -248,7 +248,7 @@ const PostCard = () => {
                 <p className="text-gray-700 mb-4">{post?.description}</p>
                 {post.image && (
                   <img
-                    src={`https://artflow.onrender.com/artistPosts/${post.image}`}
+                    src={post.image}
                     // src={`https://artflow.onrender.com/artistPosts/${post.image}`}
                     alt={`Post by ${post?.postedBy?.name}`}
                     className="mb-4 rounded-md w-full"

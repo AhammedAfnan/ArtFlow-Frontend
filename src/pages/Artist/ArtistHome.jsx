@@ -68,7 +68,7 @@ function ArtistHome() {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="relative max-w-xs sm:max-w-sm md:max-w-lg lg:max-w-2xl mx-auto min-w-0 break-words w-full mb-6 shadow-lg rounded-xl mt-10 sm:mt-20 bg-gray-100"
+            className="relative max-w-xs sm:max-w-sm md:max-w-lg lg:max-w-2xl mx-auto min-w-0 break-words w-full mb-6 shadow-lg rounded-xl mt-10 sm:mt-20 bg-gray-300"
           >
             <div className="px-4 sm:px-6">
               <div className="flex flex-wrap justify-center">

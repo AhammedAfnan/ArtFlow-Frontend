@@ -56,7 +56,7 @@ const PostCard = ({ post, onDelete }) => {
     <div className="bg-white shadow-lg rounded-lg overflow-hidden m-4 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 relative">
       <img
         className="w-full h-42 object-cover"
-        src={`https://artflow.onrender.com/artistPosts/${post.image}`}
+        src={post.image}
         // src={`https://artflow.onrender.com/artistPosts/${post.image}`}
         alt={post.title}
       />
